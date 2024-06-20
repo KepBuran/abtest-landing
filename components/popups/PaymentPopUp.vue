@@ -1,7 +1,7 @@
 <template>
-    <PopUp>
-        <CreditCardForm/>
-    </PopUp>
+  <PopUp>
+    <CreditCardForm />
+  </PopUp>
 </template>
 
 <script setup lang="ts">

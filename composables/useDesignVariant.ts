@@ -13,7 +13,7 @@ export default function useDesignVariant(): { designVariant: ComputedRef<'var1' 
     }
 
     if (!abTestParam) {
-        return DEFAULT_DESIGN_VARIANT
+      return DEFAULT_DESIGN_VARIANT
     }
 
     console.warn('Invalid abtest param:', abTestParam)
@@ -22,6 +22,6 @@ export default function useDesignVariant(): { designVariant: ComputedRef<'var1' 
   })
 
   return {
-    designVariant
+    designVariant,
   }
 }

@@ -1,15 +1,19 @@
 <template>
-    <PopUpOverlay v-if="isOpen">
-        <div class="pop-up p-5 bg-var1-white shadow-var1-popup rounded-xl">
-            <slot/>
-            <Button :title="'Close'" class="p-3 opacity-40 font-semibold" @click="close"/>
-        </div>
-    </PopUpOverlay>
+  <PopUpOverlay v-if="isOpen">
+    <div class="pop-up rounded-xl bg-var1-white p-5 shadow-var1-popup">
+      <slot />
+      <Button
+        :title="'Close'"
+        class="p-3 font-semibold opacity-40"
+        @click="close"
+      />
+    </div>
+  </PopUpOverlay>
 </template>
 
 <script setup lang="ts">
 import PopUpOverlay from '~/components/popups/PopUpOverlay.vue'
-import Button from '../buttons/Button.vue';
+import Button from '../buttons/Button.vue'
 
 const isOpen = defineModel<boolean>('isOpen')
 const close = () => isOpen.value = false

@@ -29,6 +29,7 @@ module.exports = {
     'arrow-spacing': [1, { 'before': true, 'after': true }],
     'space-infix-ops': [1, { 'int32Hint': false }],
     'semi-spacing': [1, { 'before': false, 'after': true }],
+    'vue/multi-word-component-names': 'off',
   },
   plugins: ['tailwindcss', 'nuxt'],
 }

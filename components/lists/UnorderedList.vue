@@ -8,8 +8,13 @@
       class="flex gap-3"
     >  
       <slot name="bullet" />
-      <p v-if="!secureInsert" v-html="item"/> 
-      <p v-else>{{ item }}</p>
+      <p
+        v-if="!secureInsert"
+        v-html="item"
+      /> 
+      <p v-else>
+        {{ item }}
+      </p>
     </li>
   </ul>
 </template>
@@ -19,7 +24,7 @@ const props = withDefaults(defineProps<{
   items: string[]
   secureInsert: boolean
 }>(), {
-  secureInsert: true
+  secureInsert: true,
 })
 
 </script>

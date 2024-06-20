@@ -1,9 +1,9 @@
 <template>
-    <Teleport to="body"> 
-            <div class="popup-overlay absolute z-40 top-0 h-dvh w-dvw flex items-center justify-center bg-black bg-opacity-20">
-                <slot/>
-            </div>
-    </Teleport>
+  <Teleport to="body"> 
+    <div class="popup-overlay absolute top-0 z-40 flex h-dvh w-dvw items-center justify-center bg-black bg-opacity-20">
+      <slot />
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">

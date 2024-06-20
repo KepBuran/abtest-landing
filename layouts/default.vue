@@ -1,29 +1,29 @@
 <template>
-    <div class="app-layout mx-auto h-dvh flex flex-col gap-16 items-center">
-        <Header class="shrink-0"/>
-        <main class="h-full max-w-5xl w-full">
-            <NuxtPage/>
-        </main>
-    </div>
+  <div class="app-layout mx-auto flex h-dvh flex-col items-center gap-16">
+    <Header class="shrink-0" />
+    <main class="size-full max-w-5xl">
+      <NuxtPage />
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 import Header from '~/components/layout/Header.vue'
 
-const {designVariant} = useDesignVariant()
+const { designVariant } = useDesignVariant()
 const backgroundsPath: string = '/backgrounds/'
 const backgroundDict = {
-    'var1': 'var1-background.svg',
-    'var2': 'var2-background.svg',
+  'var1': 'var1-background.svg',
+  'var2': 'var2-background.svg',
 }
 
 const backgroundUrl: ComputedRef<string> = computed(() => {
-    console.log(designVariant.value)
-    return `url(${backgroundsPath}${backgroundDict[designVariant.value]})`
+  console.log(designVariant.value)
+  return `url(${backgroundsPath}${backgroundDict[designVariant.value]})`
 })
 
 const backgroundOpacity: ComputedRef<number> = computed(() => {
-    return designVariant.value === 'var1' ? 0.04 : 1
+  return designVariant.value === 'var1' ? 0.04 : 1
 })
 
 </script>

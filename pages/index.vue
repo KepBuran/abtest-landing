@@ -1,8 +1,8 @@
 <template>
-  <div class="h-full w-full flex flex-row gap-6">
-    <CallToAction class="basis-1/2 m-4"/>
-    <Card class="h-3/4 flex items-center basis-1/2">
-      <FeaturesList class="mt-4"/>
+  <div class="flex size-full flex-row gap-6">
+    <CallToAction class="m-4 basis-1/2" />
+    <Card class="flex h-3/4 basis-1/2 items-center">
+      <FeaturesList class="mt-4" />
     </Card>
   </div>
 </template>

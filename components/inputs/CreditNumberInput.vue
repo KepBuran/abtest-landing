@@ -6,6 +6,7 @@
     :type="'text'" 
     :required="true" 
     maxlength="19" 
+    minlength="19"
     placeholder="••••  ••••  ••••  ••••" 
     :validation-function="validateCreditNumber"
   >

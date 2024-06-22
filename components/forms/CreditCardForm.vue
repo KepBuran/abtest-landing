@@ -8,25 +8,27 @@
     </h2>
     <CreditNumberInput class="w-full" />
     
-    <div class="flex w-full gap-[10px]">
+    <div class="grid grid-cols-3 gap-[10px]">
       <Select
+        id="month-input"
         v-model="month"
+        label="Month"
         :options="months"
-        class=" basis-1/3"
       />
       <Select
-        v-model="month"
-        :options="months"
-        class=" basis-1/3"
+        id="year-input"
+        v-model="year"
+        label="Year"
+        :options="years"
       />
       <CVCInput
         v-model="cvc"
-        class="w-1/3 basis-1/3"
       />
     </div>
     
     <Button
-      class="h-14 w-[300px] bg-var1-button-inactive font-bold text-var1-white"
+      type="submit"
+      class="h-14 w-[300px] bg-var1-background-button-inactive font-bold text-var1-white"
       :title="'Submit'"
     />
   </form>
@@ -42,16 +44,16 @@ const month = ref('')
 const year = ref('')
 const cvc = ref('')
 
-const months = Array.from({ length: 12 }, (_, i) => i + 1)
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i)
 
 const submitPayment = () => {
-  const paymentData = {
-    cardNumber: cardNumber.value,
-    month: month.value,
-    year: year.value,
-    cvc: cvc.value,
-  }
+  // const paymentData = {
+  //   cardNumber: cardNumber.value,
+  //   month: month.value,
+  //   year: year.value,
+  //   cvc: cvc.value,
+  // }
   console.log('Payment data submitted:', paymentData)
   // Add your payment processing logic here
 }

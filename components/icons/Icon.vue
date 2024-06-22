@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="name"
     :src="`/icons/${name}.${extenstion}`"
     :alt="`icon ${name.split('-').join(' ')}`"
   >

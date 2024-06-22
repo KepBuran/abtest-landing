@@ -13,18 +13,18 @@
       :class="paragraphClasses.main"
     >
       Get a 
-      <bold
+      <span
         class="text-2xl font-extrabold"
-        :class="paragraphClasses.secondary + ' ' + paragraphClasses.accent"
+        :class="paragraphClasses.accent"
       >
-        {{ }}
-      </bold>
-      <bold
+        {{ splittedAppName[0] }}
+      </span>
+      <span
         class="text-2xl font-extrabold"
         :class="paragraphClasses.secondary"
       >
-        Learn
-      </bold> 
+        {{ splittedAppName[1] }}
+      </span> 
       plan to rock <br>self-learning
     </p>
     <GetPlanButton @click="openPopup" />
@@ -40,19 +40,17 @@ const { designVariant } = useDesignVariant()
 
 const titleClasses: ComputedRef<{main: string, secondary: string}> = computed(() => {
   const dict = {
-    'var1': { main: 'text-var1-text-primary text-5xl font-extrabold leading-[57.6px]', secondary: 'text-var1-text-primary' },
+    'var1': { main: 'text-var1-text-primary text-5xl font-extrabold leading-[57.6px]', secondary: 'text-var1-text-primary text-5xl' },
     'var2': { main: 'text-var2-text-blue1 font-normal font-intro text-[40px] leading-[48px]', secondary: 'text-var2-text-primary font-normal font-intro text-4xl' },
   }
 
   return dict[designVariant.value]
 })
 
-
-
-const appName: ComputedRef<string> = computed(() => {
+const splittedAppName: ComputedRef<string[]> = computed(() => {
   const dict = {
-    'var1': 'Planet Learn',
-    'var2': 'Smart Study',
+    'var1': ['Planet','Learn'],
+    'var2': ['Smart', 'Study'],
   }
 
   return dict[designVariant.value]
@@ -60,13 +58,12 @@ const appName: ComputedRef<string> = computed(() => {
 
 const paragraphClasses: ComputedRef<{main: string, secondary: string, accent: string}> = computed(() => {
   const dict = {
-    'var1': { main: 'text-var1-text-primary', secondary: 'text-var1-text-accent', accent: 'text-var1-text-accent' },
-    'var2': { main: 'text-var2-text-primary', secondary: 'text-var2-text-blue1', accent: 'text-var2-text-blue1' },
+    'var1': { main: 'text-var1-text-primary', secondary: 'text-var1-text-primary', accent: 'text-var1-text-accent' },
+    'var2': { main: 'text-var2-text-primary', secondary: 'text-var2-text-primary', accent: 'text-var2-text-blue1' },
   }
 
   return dict[designVariant.value]
 })
-
 
 const isPopupOpen: Ref<boolean> = ref(false)
 const openPopup = () => isPopupOpen.value = true

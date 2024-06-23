@@ -1,11 +1,7 @@
 <template>
   <fieldset 
-    class="relative flex w-fit flex-row justify-between gap-2 rounded-lg border px-4 transition-all"
-    :class="{
-      'border-var1-input-border': !status,
-      'border-var1-green1': status === 'valid',
-      'border-var1-red1': status === 'invalid',
-    }"
+    class="relative flex w-fit flex-row justify-between gap-2 rounded-lg px-4 transition-all"
+    :class="[borderColor, bgColor]"
   >
     <InputLabel
       v-if="label"
@@ -18,7 +14,8 @@
       :id="id"
       ref="inputElement"
       v-model="modelValue.value"
-      class="h-11 w-full grow appearance-none text-sm text-var1-text-input outline-none"
+      class="h-11 w-full grow appearance-none text-sm text-pl-text-input outline-none"
+      :class="bgColor + ' ' + inputClasses"
       :type="type"
       :placeholder="placeholder"
       :maxlength="maxlength"
@@ -29,7 +26,8 @@
     <Transition name="fade">
       <span
         v-if="status === 'invalid'"
-        class="flex items-center whitespace-nowrap pt-1 text-[11px] font-semibold leading-[0.5rem] text-var1-red1"
+        class="flex items-center whitespace-nowrap pt-1 text-[11px] font-semibold leading-[0.5rem]"
+        :class="errorClasses"
       >{{ errorMessage }}</span>
     </Transition>
     <slot name="append" />
@@ -78,19 +76,72 @@ const updateStatus = () => {
   
 const debounceUpdateStatus = debounce(updateStatus, 600)
   
-watch(() => modelValue.value.value, (value) => {
-  status.value = null
-  debounceUpdateStatus()
-  
+const validateModelValue = () => {
   if (!props.validationFunction) {
     return
   }
 
-  const newValue = props.validationFunction(value)
+  const newValue = props.validationFunction(modelValue.value.value)
   if (newValue.isValid) {
     status.value = 'valid'
   } 
   modelValue.value = newValue
+}
+
+watch(() => modelValue.value.value, () => {
+  status.value = null
+  debounceUpdateStatus()
+  
+  validateModelValue()
+})
+
+onMounted(() => {
+  validateModelValue()
+})
+
+const { designVariant } = useDesignVariant()
+const bgColor: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': 'bg-pl-background-primary',
+    'ss': 'bg-ss-background-secondary',
+  }
+
+  return dict[designVariant.value]
+})
+
+const borderColor: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': {
+      'default': 'border border-pl-input-border',
+      'valid': 'border border-pl-ui-valid',
+      'invalid': 'border border-pl-ui-invalid',
+    },
+    'ss': {
+      'default': 'border border-ss-background-secondary',
+      'valid': 'border border-ss-ui-valid',
+      'invalid': 'border border-ss-ui-invalid',
+    },
+  }
+
+  return dict[designVariant.value][status.value ?? 'default']
+})
+
+const errorClasses: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': 'text-pl-ui-invalid',
+    'ss': 'text-ss-text-ss-text-primary',
+  }
+
+  return dict[designVariant.value]
+})
+
+const inputClasses: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': 'text-pl-text-input placeholder-pl-text-input',
+    'ss': 'text-ss-text-primary placeholder-ss-text-primary',
+  }
+
+  return dict[designVariant.value]
 })
 
 </script>

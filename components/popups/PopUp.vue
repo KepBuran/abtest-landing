@@ -1,10 +1,14 @@
 <template>
   <PopUpOverlay v-if="isOpen">
-    <div class="pop-up flex max-w-full flex-col gap-2 rounded-xl bg-var1-white p-5 shadow-var1-popup">
+    <div
+      class="pop-up flex max-w-full flex-col gap-2 p-4 pt-6"
+      :class="popUpClasses"
+    >
       <slot />
       <Button
         :title="'Close'"
         class="p-3 font-semibold opacity-40"
+        :class="buttonClasses"
         @click="close"
       />
     </div>
@@ -17,6 +21,25 @@ import Button from '../buttons/Button.vue'
 
 const isOpen = defineModel<boolean>('isOpen')
 const close = () => isOpen.value = false
+
+const { designVariant } = useDesignVariant()
+const popUpClasses = computed(() => {
+  const dict = {
+    'pl': 'bg-pl-background-primary shadow-pl-popup rounded-xl',
+    'ss': 'bg-ss-background-primary text-ss-text-primary rounded-3xl',
+  }
+
+  return dict[designVariant.value]
+})
+
+const buttonClasses = computed(() => {
+  const dict = {
+    'pl': 'opacity-40 text-pl-text-primary',
+    'ss': 'opacity-100 text-ss-text-primary',
+  }
+
+  return dict[designVariant.value]
+})
 
 </script>
 

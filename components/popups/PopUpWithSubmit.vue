@@ -2,7 +2,7 @@
   <PopUp v-model:isOpen="isOpen">
     <slot />
     <Button
-      class="bg-var1-button-inactive h-14 font-bold text-var1-white"
+      class="bg-pl-button-inactive h-14 font-bold text-pl-text-contrast"
       :title="'Submit'"
     />
   </PopUp>

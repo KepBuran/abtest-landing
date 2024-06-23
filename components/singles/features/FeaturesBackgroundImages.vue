@@ -1,12 +1,12 @@
 <template>
   <div class="relative">
-    <template v-if="designVariant === 'var1'">
+    <template v-if="designVariant === 'pl'">
       <Icon
         name="comet"
         class="absolute left-1/2 z-20 -translate-y-2/3 translate-x-3"
       />
     </template>
-    <template v-if="designVariant === 'var2'">
+    <template v-if="designVariant === 'ss'">
       <Icon
         v-if="viewport.isGreaterThan('md')"
         name="rocket"

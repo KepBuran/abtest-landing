@@ -4,8 +4,8 @@
   >
     <div
       ref="selectorElement"
-      class="cursor-pointer overflow-hidden rounded-lg border border-var1-green2 transition-all"
-      :class="{'rounded-b-none border': isListShow, 'border-var1-input-border': !isListShow && !modelValue}"
+      class="cursor-pointer overflow-hidden rounded-lg border transition-all"
+      :class="`${isListShow ? 'rounded-b-none' : ''}` + ' ' + selectorBorder"
       @click="toggleListShow"
     >
       <InputLabel
@@ -14,9 +14,9 @@
       >
         {{ label }}
       </InputLabel>
-      <Icon
+      <ChervonDownIcon
         class="absolute right-3 top-1/2 -translate-y-1/2"
-        name="chevron-down"
+        :class="chevronFill"
       />
       <input
         :id="id"
@@ -25,7 +25,8 @@
         readonly
         placeholder="Select"
         :required="isRequired"
-        class="flex h-11 w-full cursor-pointer appearance-none items-center bg-var1-white px-4 text-xs text-var1-text-input outline-none"     
+        :class="selectorClasses"
+        class="flex h-11 w-full cursor-pointer appearance-none items-center px-4 text-xs outline-none"     
       >
     </div>
     <Transition name="drop-down">
@@ -33,22 +34,14 @@
         v-if="isListShow"
         class="absolute top-full z-10 w-full"
       >
-        <div
+        <SelectItem
           v-for="option, i in options"
           :key="option"
-          :class="{'rounded-b-lg': i === options.length - 1, 'bg-var1-green1': getIsSelected(option), 'bg-var1-white': !getIsSelected(option), 'text-var1-white': getIsSelected(option), 'hover:bg-var1-green1': !getIsSelected(option), 'hover:text-var1-white': !getIsSelected(option)}" 
-          class="flex w-full cursor-pointer flex-row items-center justify-between overflow-hidden border-x border-b border-var1-input-border px-4 py-2 text-xs text-var1-text-input"
+          :is-last="i === options.length - 1"
+          :is-selected="getIsSelected(option)"
+          :option="option"
           @click="(e) => selectOption(option)"
-        >
-          <option class="text-xs">
-            {{ option }} 
-          </option>
-          <Icon
-            v-if="getIsSelected(option)"
-            class="shadow-check-shadow"
-            name="white-check"
-          />
-        </div>
+        />
       </div>
     </Transition>
   </div>
@@ -57,6 +50,8 @@
 <script setup lang="ts">
 import Icon from '~/components/icons/Icon.vue'
 import InputLabel from './InputLabel.vue'
+import SelectItem from './SelectItem.vue'
+import ChervonDownIcon from '../icons/ChervonDownIcon.vue'
 
 const props = withDefaults(defineProps<{
   options: Array<string | number>
@@ -101,6 +96,41 @@ onMounted(() => {
       isListShow.value = false
     }
   })
+})
+
+const { designVariant } = useDesignVariant()
+
+const isValidBorder: ComputedRef<boolean> = computed(() => {
+  return !!(isListShow.value || modelValue.value)
+})
+
+console.log('isValidBorder', isValidBorder.value, isListShow.value, modelValue.value)
+
+const selectorClasses: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': 'bg-pl-background-primary text-pl-text-input placeholder-pl-text-input',
+    'ss': 'bg-ss-background-secondary text-ss-text-primary placeholder-ss-text-primary',
+  }
+
+  return dict[designVariant.value]
+})
+
+const selectorBorder: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': isValidBorder.value ? 'border-pl-ui-valid-lighter' : 'border-pl-input-border', 
+    'ss': isValidBorder.value ? 'border-ss-ui-valid' : 'border-ss-background-secondary',
+  }
+
+  return dict[designVariant.value]
+})
+
+const chevronFill: ComputedRef<string> = computed(() => {
+  const dict = {
+    'pl': 'fill-pl-text-input',
+    'ss': 'fill-ss-text-primary',
+  }
+
+  return dict[designVariant.value]
 })
 
 </script>

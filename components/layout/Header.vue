@@ -3,7 +3,7 @@
     <NuxtLink to="/">
       <Icon
         :name="iconName"
-        :class="{'ml-28': viewport.isGreaterThan('sm')}"
+        class="md:ml-28"
       />
     </NuxtLink>
   </header>
@@ -18,8 +18,8 @@ const viewport = useViewport()
 
 const iconName = computed(() => {
   const dict = {
-    'var1': 'planet-learn-logo',
-    'var2': 'smart-study-logo',
+    'pl': 'planet-learn-logo',
+    'ss': 'smart-study-logo',
   }
  
   return dict[designVariant.value]    

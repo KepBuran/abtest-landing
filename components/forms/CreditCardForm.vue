@@ -28,12 +28,11 @@
         v-model="cvc"
       />
     </div>
-    
-    <Button
-      type="submit"
-      class="h-14 w-[300px] font-bold text-var1-white"
-      :class="{'bg-var1-background-black hover:bg-var1-green1': isFormValid, 'cursor-default': !isFormValid, 'bg-var1-background-button-inactive': !isFormValid}"
+    <DefaultButton
+      class="w-full"
       :title="'Submit'"
+      type="submit"
+      :disabled="!isFormValid"
     />
   </form>
 </template>
@@ -41,21 +40,13 @@
 <script setup lang="ts">
 import CreditNumberInput from '~/components/inputs/CreditNumberInput.vue'
 import CVCInput from '~/components/inputs/CVCInput.vue'
-import Button from '~/components/buttons/Button.vue'
-import Select from '../inputs/Select.vue'
-import type { InputValue } from '~/types/input'
+import DefaultButton from '~/components/buttons/DefaultButton.vue'
+import Select from '~/components/inputs/Select.vue'
 
-const creditNumber: Ref<InputValue> = ref({ value: '', isValid: false })
-const cvc: Ref<InputValue> = ref({ value: '', isValid: false })
-const month = ref('')
-const year = ref('')
+const { creditNumber, cvc, month, year, isFormValid } = useCreditCardForm()
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i)
-
-const isFormValid: ComputedRef<boolean> = computed(() => 
-  !!(creditNumber.value.isValid && cvc.value.isValid && month.value && year.value),
-)
 
 const submitPayment = () => {
   

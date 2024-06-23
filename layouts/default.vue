@@ -1,10 +1,9 @@
 <template>
   <div
-    class="app-layout flex h-full min-h-dvh flex-col items-center pb-8"
-    :class="{'gap-16': viewport.isGreaterThan('sm'), 'gap-10': viewport.isLessThan('sm')}"
+    class="app-layout flex h-full min-h-dvh flex-col items-center gap-8 overflow-x-hidden pb-8 md:gap-10"
   >
     <Header class="shrink-0" />
-    <main class="flex size-full max-w-5xl grow px-6">
+    <main class="flex size-full max-w-5xl grow px-4">
       <NuxtPage />
     </main>
   </div>
@@ -16,8 +15,8 @@ import Header from '~/components/layout/Header.vue'
 const { designVariant } = useDesignVariant()
 const backgroundsPath: string = '/backgrounds/'
 const backgroundDict = {
-  'var1': 'var1-background.svg',
-  'var2': 'var2-background.svg',
+  'pl': 'pl-background.svg',
+  'ss': 'ss-background.svg',
 }
 
 const backgroundUrl: ComputedRef<string> = computed(() => {
@@ -25,10 +24,8 @@ const backgroundUrl: ComputedRef<string> = computed(() => {
 })
 
 const backgroundOpacity: ComputedRef<number> = computed(() => {
-  return designVariant.value === 'var1' ? 0.04 : 1
+  return designVariant.value === 'pl' ? 0.04 : 1
 })
-
-const viewport = useViewport()
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="app-layout flex h-full min-h-dvh flex-col items-center gap-8 overflow-x-hidden pb-8 md:gap-10"
+    class="app-layout flex h-full min-h-dvh flex-col items-center gap-8 overflow-x-hidden pb-8 md:gap-[10dvh]"
   >
     <Header class="shrink-0" />
     <main class="flex size-full max-w-5xl grow px-4">
@@ -8,6 +8,7 @@
     </main>
   </div>
 </template>
+<!-- If no dynamic gap needed - md:gap-10 -->
 
 <script setup lang="ts">
 import Header from '~/components/layout/Header.vue'

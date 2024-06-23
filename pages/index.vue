@@ -40,6 +40,11 @@ const metaData: ComputedRef<{title: string, meta: {name: string, content: string
           href: '/icons/favicon-ss.svg',
         },
       ],
+      head: {
+        htmlAttrs: {
+          lang: 'en',
+        },
+      },
     },
   
   }

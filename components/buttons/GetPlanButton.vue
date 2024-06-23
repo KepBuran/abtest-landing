@@ -1,6 +1,6 @@
 <template>
   <Button
-    class="h-14 max-w-72 font-bold"
+    class="h-14 font-bold"
     :title="'Get my plan'"
     :class="buttonClasses"
   />
@@ -10,7 +10,6 @@
 import Button from '~/components/buttons/Button.vue'
 
 const { designVariant } = useDesignVariant()
-
 
 const buttonClasses: ComputedRef<string> = computed(() => {
   const dict = {

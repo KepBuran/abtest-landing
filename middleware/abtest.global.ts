@@ -10,16 +10,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return
   }
   
-  if (!abTestParam) {
-    setDesignVariant('var1')
-    return
-  }
-  
   if (abTestParam === 'test') {
     setDesignVariant(Math.random() > 0.5 ? 'var1' : 'var2')
     return
   }
   
+  // Default variant if no query parameter is set or if the query parameter is invalid
   setDesignVariant('var1')
 })
   

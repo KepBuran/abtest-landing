@@ -1,7 +1,10 @@
 <template>
-  <div class="app-layout mx-auto flex h-dvh flex-col items-center gap-16">
+  <div
+    class="app-layout flex h-full min-h-dvh flex-col items-center pb-8"
+    :class="{'gap-16': viewport.isGreaterThan('sm'), 'gap-10': viewport.isLessThan('sm')}"
+  >
     <Header class="shrink-0" />
-    <main class="size-full max-w-5xl">
+    <main class="flex size-full max-w-5xl grow px-6">
       <NuxtPage />
     </main>
   </div>
@@ -25,6 +28,7 @@ const backgroundOpacity: ComputedRef<number> = computed(() => {
   return designVariant.value === 'var1' ? 0.04 : 1
 })
 
+const viewport = useViewport()
 </script>
 
 <style scoped>

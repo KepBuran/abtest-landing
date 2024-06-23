@@ -7,7 +7,11 @@
       :key="item"
       class="flex gap-3"
     >  
-      <slot name="bullet" />
+      <span class="shrink-0">
+        <slot
+          name="bullet"
+        />
+      </span>
       <p
         v-if="!secureInsert"
         v-html="item"

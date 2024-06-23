@@ -8,12 +8,12 @@
 
 <script setup lang="ts">
 // Component for non-dynamic icons
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   name: string
   extenstion?: string
-}>()
-
-const extenstion: ComputedRef<string> = computed(() => props.extenstion ?? 'svg')
+}>(), {
+  extenstion: 'svg',
+})
 
 </script>
 

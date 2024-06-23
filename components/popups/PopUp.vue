@@ -1,6 +1,6 @@
 <template>
   <PopUpOverlay v-if="isOpen">
-    <div class="pop-up rounded-xl bg-var1-white p-5 shadow-var1-popup">
+    <div class="pop-up flex max-w-full flex-col gap-2 rounded-xl bg-var1-white p-5 shadow-var1-popup">
       <slot />
       <Button
         :title="'Close'"

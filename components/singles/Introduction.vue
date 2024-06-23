@@ -1,11 +1,17 @@
 <template>
-  <div class="flex flex-col gap-8 text-var1-text-primary">
+  <div
+    class="flex flex-col text-var1-text-primary"
+    :class="{'gap-3': viewport.isLessThan('sm'), 'gap-8': viewport.isGreaterThan('sm')}"
+  >
     <h1
-      class="text-5xl font-extrabold leading-[57.6px]"
+      class="text-[32px] font-extrabold leading-10 sm:text-5xl sm:leading-[57.6px]"
       :class="titleClasses.main"
     >
       Start 
-      <span :class="titleClasses.secondary">your <br v-if="designVariant === 'var2'"> learning journey</span> 
+      <span
+        class="text-[32px] sm:text-5xl"
+        :class="titleClasses.secondary"
+      >your <br v-if="designVariant === 'var2'"> learning journey</span> 
       now
     </h1>
     <p
@@ -27,7 +33,10 @@
       </span> 
       plan to rock <br>self-learning
     </p>
-    <GetPlanButton @click="openPopup" />
+    <GetPlanButton
+      :class="{'mt-5 w-full': viewport.isLessThan('sm'), 'max-w-72': viewport.isGreaterThan('sm')}"
+      @click="openPopup"
+    />
     <PaymentPopUp v-model:isOpen="isPopupOpen" />
   </div>
 </template>
@@ -78,6 +87,8 @@ onMounted(() => {
 onUnmounted(() => {
   clearTimeout(timeout)
 })
+
+const viewport = useViewport()
 </script>
 
 <style scoped>

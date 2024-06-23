@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body"> 
-    <div class="popup-overlay absolute top-0 z-40 flex h-dvh w-dvw items-center justify-center bg-black bg-opacity-20">
+    <div class="popup-overlay fixed top-0 z-40 flex h-full w-dvw items-center justify-center bg-black bg-opacity-20 px-3">
       <slot />
     </div>
   </Teleport>

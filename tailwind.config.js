@@ -20,6 +20,7 @@ export default {
         'check-shadow': '0px 4px 4px 0px #00000010;',  
       },
       colors: {
+        // planet-learn
         var1: {
           text: {
             primary: '#000000',

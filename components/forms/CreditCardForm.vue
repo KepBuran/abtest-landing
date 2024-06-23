@@ -1,6 +1,6 @@
 <template>
   <form
-    class="flex w-96 flex-col items-center gap-9"
+    class="flex w-96 max-w-full flex-col items-center gap-9"
     @submit.prevent="submitPayment"
   >
     <h2 class="text-[21px] font-extrabold">
@@ -32,7 +32,7 @@
     <Button
       type="submit"
       class="h-14 w-[300px] font-bold text-var1-white"
-      :class="{'bg-var1-background-black hover:bg-var1-green1': isFormValid, 'bg-var1-background-button-inactive': !isFormValid}"
+      :class="{'bg-var1-background-black hover:bg-var1-green1': isFormValid, 'cursor-default': !isFormValid, 'bg-var1-background-button-inactive': !isFormValid}"
       :title="'Submit'"
     />
   </form>

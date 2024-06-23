@@ -76,14 +76,21 @@ const updateStatus = () => {
   status.value = modelValue.value.isValid  ? 'valid' : 'invalid'
 }
   
-const debounceUpdateStatus = debounce(updateStatus, 500)
+const debounceUpdateStatus = debounce(updateStatus, 600)
   
 watch(() => modelValue.value.value, (value) => {
   status.value = null
   debounceUpdateStatus()
-  if (props.validationFunction) {
-    modelValue.value = props.validationFunction(value)
+  
+  if (!props.validationFunction) {
+    return
   }
+
+  const newValue = props.validationFunction(value)
+  if (newValue.isValid) {
+    status.value = 'valid'
+  } 
+  modelValue.value = newValue
 })
 
 </script>

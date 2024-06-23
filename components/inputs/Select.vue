@@ -32,7 +32,7 @@
     <Transition name="drop-down">
       <div
         v-if="isListShow"
-        class="absolute top-full z-10 w-full"
+        class="absolute top-full z-10 max-h-[50dvh] w-full overflow-y-auto"
       >
         <SelectItem
           v-for="option, i in options"

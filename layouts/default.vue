@@ -18,7 +18,6 @@ const backgroundDict = {
 }
 
 const backgroundUrl: ComputedRef<string> = computed(() => {
-  console.log(designVariant.value)
   return `url(${backgroundsPath}${backgroundDict[designVariant.value]})`
 })
 

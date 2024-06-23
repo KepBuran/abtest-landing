@@ -68,10 +68,15 @@ const paragraphClasses: ComputedRef<{main: string, secondary: string, accent: st
 const isPopupOpen: Ref<boolean> = ref(false)
 const openPopup = () => isPopupOpen.value = true
 
+let timeout: NodeJS.Timeout
 onMounted(() => {
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     isPopupOpen.value = true      
   }, 3 * 60 * 1000)
+})
+
+onUnmounted(() => {
+  clearTimeout(timeout)
 })
 </script>
 

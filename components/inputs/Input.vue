@@ -1,5 +1,12 @@
 <template>
-  <fieldset class="user-invalid:border-var1-red1 relative flex w-fit flex-row justify-between gap-2 rounded-lg border border-var1-input-border px-4">
+  <fieldset 
+    class="relative flex w-fit flex-row justify-between gap-2 rounded-lg border px-4 transition-all"
+    :class="{
+      'border-var1-input-border': !status,
+      'border-var1-green1': status === 'valid',
+      'border-var1-red1': status === 'invalid',
+    }"
+  >
     <InputLabel
       v-if="label"
       :for="id"
@@ -10,20 +17,30 @@
     <input
       :id="id"
       ref="inputElement"
-      v-model="modelValue"
+      v-model="modelValue.value"
       class="h-11 w-full grow appearance-none text-sm text-var1-text-input outline-none"
       :type="type"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :minlength="minlength"
       :required="required"
+      @blur="updateStatus"
     >
+    <Transition name="fade">
+      <span
+        v-if="status === 'invalid'"
+        class="flex items-center whitespace-nowrap pt-1 text-[11px] font-semibold leading-[0.5rem] text-var1-red1"
+      >{{ errorMessage }}</span>
+    </Transition>
     <slot name="append" />
   </fieldset>
 </template>
 
 <script setup lang="ts">
+import type { InputValue, ValidationFunc } from '~/types/input'
 import InputLabel from './InputLabel.vue'
+import debounce from 'lodash.debounce'
+
 
 export interface InputProps {
   id?: string
@@ -34,7 +51,8 @@ export interface InputProps {
   isValid?: boolean
   required?: boolean
   label?: string
-  validationFunction?: (value: string) => string
+  errorMessage?: string
+  validationFunction?: ValidationFunc
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -45,21 +63,42 @@ const props = withDefaults(defineProps<InputProps>(), {
   minlength: undefined,
   required: false,
   label: undefined,
+  errorMessage: '',
   validationFunction: undefined,
 })
 
-const modelValue = defineModel<string>({ default: '' })
-
-watch(modelValue, (value) => {
-  modelValue.value = props.validationFunction ? props.validationFunction(value) : value
-})
-
 const id: ComputedRef<string> = computed(() => props.id ?? Math.random().toString(36).substring(7))
-
 const inputElement: Ref<HTMLInputElement | null> = ref(null)
+const modelValue = defineModel<InputValue>({ default: reactive({ value: '', isValid: false }) })
+
+const status: Ref<null | 'valid' | 'invalid'> = ref(null)
+const updateStatus = () => {
+  status.value = modelValue.value.isValid  ? 'valid' : 'invalid'
+}
+  
+const debounceUpdateStatus = debounce(updateStatus, 500)
+  
+watch(() => modelValue.value.value, (value) => {
+  status.value = null
+  debounceUpdateStatus()
+  if (props.validationFunction) {
+    modelValue.value = props.validationFunction(value)
+  }
+})
 
 </script>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
+}
 
-</style>
+.fade-leave-active {
+  transition: opacity 0.1s;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+</style>import type { ValidationFunc, InputValue } from '~/types/input'

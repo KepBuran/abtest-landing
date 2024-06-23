@@ -4,8 +4,8 @@
   >
     <div
       ref="selectorElement"
-      class="cursor-pointer overflow-hidden rounded-lg transition-all"
-      :class="{'rounded-b-none border border-var1-green2': isListShow, 'border border-var1-input-border': !isListShow}"
+      class="cursor-pointer overflow-hidden rounded-lg border border-var1-green2 transition-all"
+      :class="{'rounded-b-none border': isListShow, 'border-var1-input-border': !isListShow && !modelValue}"
       @click="toggleListShow"
     >
       <InputLabel
@@ -59,7 +59,7 @@ import Icon from '~/components/icons/Icon.vue'
 import InputLabel from './InputLabel.vue'
 
 const props = withDefaults(defineProps<{
-  options: string[]
+  options: Array<string | number>
   id?: string
   label?: string
   isRequired?: boolean
@@ -70,7 +70,7 @@ const props = withDefaults(defineProps<{
   isRequired: true,
 })
 
-const modelValue = defineModel<string>()
+const modelValue = defineModel<string | number>()
 
 const id: ComputedRef<string> = computed(() => props.id ?? Math.random().toString(36).substring(7))
 const selectorElement: Ref<HTMLElement | null> = ref(null)
@@ -80,12 +80,12 @@ const toggleListShow = () => {
   isListShow.value = !isListShow.value
 }
 
-const selectOption = (option: string) => {
+const selectOption = (option: string | number) => {
   modelValue.value = option
   isListShow.value = false
 }
 
-const getIsSelected = (option: string) => {
+const getIsSelected = (option: string | number) => {
   return modelValue.value === option
 }
 

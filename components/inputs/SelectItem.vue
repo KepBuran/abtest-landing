@@ -1,7 +1,7 @@
 <template>
   <div
     :class="optionClasses" 
-    class="flex w-full cursor-pointer flex-row items-center justify-between overflow-hidden border-x border-b px-4 py-2 text-xs text-pl-text-input"
+    class="flex w-full cursor-pointer flex-row items-center justify-between overflow-hidden border-x border-b px-4 py-2 text-xs"
   >
     <option class="text-xs">
       {{ option }} 
@@ -27,8 +27,8 @@ const { designVariant } = useDesignVariant()
 const optionClasses = computed(() => {
   const dict = {
     'pl': {
-      'default': 'border-pl-input-border bg-pl-background-primary text-pl-text-contrast',
-      'notSelected': 'bg-pl-background-primary text-pl-text-contrast',
+      'default': 'border-pl-input-border bg-pl-background-primary',
+      'notSelected': 'bg-pl-background-primary text-pl-text-input',
       'hover': 'hover:bg-pl-ui-valid hover:text-pl-text-contrast',
       'selected': 'bg-pl-ui-valid text-pl-text-contrast',
     },
@@ -43,7 +43,7 @@ const optionClasses = computed(() => {
   const rounded = props.isLast ? 'rounded-b-lg' : ''
   const classes = dict[designVariant.value]
 
-  return [
+  return [ 
     classes.default,
     classes.hover,
     rounded,

@@ -7,7 +7,7 @@
       <slot />
       <Button
         :title="'Close'"
-        class="p-3 font-semibold opacity-40"
+        class="p-3 font-semibold"
         :class="buttonClasses"
         @click="close"
       />

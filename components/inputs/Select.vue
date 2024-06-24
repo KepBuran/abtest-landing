@@ -32,7 +32,7 @@
     <Transition name="drop-down">
       <div
         v-if="isListShow"
-        class="absolute top-full z-10 max-h-[50dvh] w-full overflow-y-auto"
+        class="absolute top-full z-10 max-h-[44dvh] w-full overflow-y-auto"
       >
         <SelectItem
           v-for="option, i in options"
@@ -48,10 +48,12 @@
 </template>
 
 <script setup lang="ts">
-import Icon from '~/components/icons/Icon.vue'
 import InputLabel from './InputLabel.vue'
 import SelectItem from './SelectItem.vue'
 import ChervonDownIcon from '../icons/ChervonDownIcon.vue'
+
+// TODO: implement logic for detecting if the list out of the screen and move it to the top
+// Але сподіваюсь для тестового завдання ліміта у max-h-[44dvh] достатньо 🙃
 
 const props = withDefaults(defineProps<{
   options: Array<string | number>

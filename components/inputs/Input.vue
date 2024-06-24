@@ -14,7 +14,7 @@
       :id="id"
       ref="inputElement"
       v-model="modelValue.value"
-      class="h-11 w-full grow appearance-none text-sm text-pl-text-input outline-none"
+      class="h-11 w-full grow appearance-none text-sm font-bold outline-none"
       :class="bgColor + ' ' + inputClasses"
       :type="type"
       :placeholder="placeholder"

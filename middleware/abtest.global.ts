@@ -10,8 +10,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return
   }
   
+  
   if (abTestParam === 'test') {
-    setDesignVariant(Math.random() > 0.5 ? 'var1' : 'var2')
+    const designVariant = Math.random() > 0.5 ? 'var1' : 'var2'
+    setDesignVariant(designVariant)
+    
+    // const router = useRouter()
+    // router.push({ path: to.path, query: { abtest: designVariant } })
+    // navigateTo(to.path + '?abtest=' + designVariant)
     return
   }
   
